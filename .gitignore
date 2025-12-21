@@ -23,3 +23,16 @@ release.properties
 # Docker
 docker/*.env
 docker/*.log
+
+
+# MySQL data
+volumes/db/data/
+
+# target
+target/
+
+# OS
+.DS_Store
+
+# logs
+*.log
