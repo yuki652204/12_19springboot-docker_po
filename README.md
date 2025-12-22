@@ -1,6 +1,11 @@
 # springboot-dev-docker-template
 以下の記事のサンプルです。  
 https://qiita.com/devnokiyo/items/214aa24d60764f0f55f6
+
+Controller → Repository → Database
+        ↓
+      View
+
 # Spring Boot お問い合わせ管理アプリ
 
 Spring Boot + Docker + MySQL を使用した  
@@ -83,6 +88,9 @@ Docker による開発環境構築を目的として作成しました。
 ---
 
 ## 起動方法（Docker）
+
+※ Docker を用いることで、環境依存なく起動可能な構成としています。
+
 
 ```bash
 git clone git@github.com:yuki652204/12_19springboot-docker_po.git

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>お問い合わせ編集</title>
+</head>
+<body>
+    <h1>お問い合わせ編集</h1>
+    
+    <!-- messageはmodelから取得 (inquiryFormからではない) -->
+    <div th:if="${message}" th:text="${message}" style="color: green;"></div>
+    
+    <form th:action="@{/admin/update/{id}(id=${inquiryForm.id})}" 
+          th:object="${inquiryForm}" 
+          method="post">
+        
+        <div>
+            <label>名前:</label><br>
+            <input type="text" th:field="*{name}" />
+            <span th:if="${#fields.hasErrors('name')}" 
+                  th:errors="*{name}" 
+                  style="color: red;"></span>
+        </div>
+        <br>
+        
+        <div>
+            <label>メール:</label><br>
+            <input type="email" th:field="*{mail}" />
+            <span th:if="${#fields.hasErrors('mail')}" 
+                  th:errors="*{mail}" 
+                  style="color: red;"></span>
+        </div>
+        <br>
+        
+        <div>
+            <label>お問い合わせ内容:</label><br>
+            <!-- contentsではなくcontentに修正 -->
+            <textarea th:field="*{content}" rows="5" cols="50"></textarea>
+            <span th:if="${#fields.hasErrors('content')}" 
+                  th:errors="*{content}" 
+                  style="color: red;"></span>
+        </div>
+        <br>
+        
+        <button type="submit">更新</button>
+        <a th:href="@{/admin/list}">キャンセル</a>
+    </form>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>お問い合わせ管理一覧</title>
+</head>
+<body>
+    <h1>お問い合わせ一覧</h1>
+    <p th:if="${inquiries.isEmpty()}">データがありません。</p>
+
+    <table border="1" th:if="${!inquiries.isEmpty()}">
+        <thead>
+			
+            <tr>
+                <th>ID</th>
+                <th>名前</th>
+                <th>メールアドレス</th>
+                <th>内容</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${inquiries}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.name}"></td> <td th:text="${item.mail}"></td>
+                <td th:text="${item.content}"></td>
+                <td>
+					
+					<!-- 編集 --> 
+				　　 <a th:href="@{/admin/edit/{id}(id=${item.id})}">編集</a>
+				   <!-- 削除 -->
+                    <form th:action="@{/admin/delete/{id}(id=${item.id})}" method="post" style="display:inline;">
+                        <button type="submit" onclick="return confirm('マジで削除しますか？')">削除</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <br>
+    <a th:href="@{/form}">お問い合わせに戻る</a>
+</body>
+</html>
