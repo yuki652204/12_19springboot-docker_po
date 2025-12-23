@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,17 +33,24 @@ public class RootController {
 	}
 
 	@PostMapping("/form")
-	public String form(@Validated InquiryForm inquiryForm, BindingResult bindingResult, Model model) {
-		if (bindingResult.hasErrors()) {
-			return "root/form";
-		}
+	public String form(@Validated InquiryForm inquiryForm,
+	                   BindingResult bindingResult,
+	                   RedirectAttributes redirectAttributes) {
 
-		// RDBと連携できることを確認しておきます。
-		repository.saveAndFlush(inquiryForm);
-		inquiryForm.clear();
-		model.addAttribute("message", "お問い合わせを受け付けました。");
-		return "root/form";
+	    if (bindingResult.hasErrors()) {
+	        return "root/form"; // エラー時はPRGしない
+	    }
+
+	    repository.saveAndFlush(inquiryForm);
+
+	    redirectAttributes.addFlashAttribute(
+	        "message", "お問い合わせを受け付けました。"
+	    );
+
+	    return "redirect:/form";
 	}
+
+	
 
 	//form2
 	@GetMapping("/form2")
@@ -50,16 +59,23 @@ public class RootController {
 	}
 
 	@PostMapping("/form2")
-	public String form2(@Validated InquiryForm inquiryForm, BindingResult bindingResult, Model model) {
-		if (bindingResult.hasErrors()) {
-			return "root/form2";
-		}
+	public String form2(@Validated InquiryForm inquiryForm,
+	                    BindingResult bindingResult,
+	                    RedirectAttributes redirectAttributes) {
 
-		repository.saveAndFlush(inquiryForm);
-		inquiryForm.clear();
-		model.addAttribute("message", "お問い合わせ2を受け付けました。");
-		return "root/form2";
+	    if (bindingResult.hasErrors()) {
+	        return "root/form2";
+	    }
+
+	    repository.saveAndFlush(inquiryForm);
+
+	    redirectAttributes.addFlashAttribute(
+	        "message", "お問い合わせ2を受け付けました。"
+	    );
+
+	    return "redirect:/form2";
 	}
+
 
 	// 管理画面：一覧表示 (Read)
 	@GetMapping("/admin/list")
