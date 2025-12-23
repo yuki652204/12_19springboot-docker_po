@@ -37,6 +37,7 @@ services:
       - ../volumes/web/ssl:/etc/nginx/cert/
       - ../volumes/web/log:/var/log/nginx/
     ports:
+      - 80:80
       - 443:443
     depends_on:
       - app
